@@ -25,20 +25,8 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         return imageView
     }()
     
-    let requestImageViewWidth : CGFloat = 200
-    let imageRequest = UIImage(named: "logo") as UIImage?
-    
-    lazy var requestImageView : UIImageView = {
-        let requestImage = UIImageView()
-        requestImage.image = imageRequest
-        requestImage.contentMode = .scaleAspectFill
-        requestImage.layer.cornerRadius = requestImageViewWidth / 2
-        requestImage.layer.masksToBounds = true
-        return requestImage
-    }()
-    
     lazy var profileImageButton : UIButton = {
-        var button = UIButton(type: .system)
+        let button = UIButton(type: .system)
         button.backgroundColor = .clear
         button.layer.cornerRadius = profileImageViewWidth / 2
         button.layer.masksToBounds = true
@@ -46,20 +34,66 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         return button
     }()
     
-    lazy var sendRequestButton : UIButton = {
-        var sendButton = UIButton(type: .system)
-        sendButton.backgroundColor = .clear
-        sendButton.layer.cornerRadius = requestImageViewWidth / 2
-        sendButton.layer.masksToBounds = true
-        sendButton.addTarget(self, action: #selector(sendRequestButtonTapped), for: .touchUpInside)
-        return sendButton
+    let userNameLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Select your image profile \ntapping on a logo"
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+       return label
+    }()
+    
+    let userNameTextField : UITextField = {
+        let userName = UITextField()
+        userName.placeholder = " Insert your user name"
+        userName.borderStyle = UITextField.BorderStyle.line
+        userName.layer.cornerRadius = 10
+        userName.layer.masksToBounds = false
+       return userName
+    }()
+    
+    let emailTextField : UITextField = {
+        let email = UITextField()
+        email.placeholder = " Insert your email"
+        email.borderStyle = UITextField.BorderStyle.line
+        email.layer.cornerRadius = 10
+        email.layer.masksToBounds = false
+       return email
+    }()
+    
+    let passwordTextField : UITextField = {
+        let password = UITextField()
+        password.placeholder = " Insert your password"
+        password.isSecureTextEntry = true
+        password.borderStyle = UITextField.BorderStyle.line
+        password.layer.cornerRadius = 10
+        password.layer.masksToBounds = false
+       return password
+    }()
+    
+    let loginButton : UIButton = {
+        let loginButton = UIButton(type: .system)
+        loginButton.backgroundColor = .systemBlue
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.layer.cornerRadius = 10
+        loginButton.layer.masksToBounds = false
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        return loginButton
+    }()
+    
+    let forgotPasswordButton : UIButton = {
+        let forgotPassword = UIButton(type: .system)
+        forgotPassword.setTitle("Forgot my password", for: .normal)
+        forgotPassword.setTitleColor(.lightGray, for: .normal)
+        return forgotPassword
     }()
     
     @objc fileprivate func profileImageButtonTapped() {
         showImagePickerControllerActionSheet()
     }
     
-    @objc fileprivate func sendRequestButtonTapped() {
+    @objc fileprivate func loginButtonTapped() {
         let contacts = ContactsViewController()
         navigationController?.pushViewController(contacts, animated: true)
     }
@@ -70,19 +104,24 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
     }
     
     fileprivate func setupViews() {
+        addSubViews()
+        constraints()
         view.backgroundColor = .white
-        addViews()
-        constrainViews()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .white
     }
     
-    fileprivate func addViews() {
+    fileprivate func addSubViews() {
+        view.addSubview(loginButton)
+        view.addSubview(userNameLabel)
+        view.addSubview(emailTextField)
         view.addSubview(profileImageView)
-        view.addSubview(requestImageView)
+        view.addSubview(passwordTextField)
         view.addSubview(profileImageButton)
-        view.addSubview(sendRequestButton)
+        view.addSubview(forgotPasswordButton)
     }
     
-    fileprivate func constrainViews() {
+    fileprivate func constraints() {
         profileImageView.topToSuperview(offset: 36, usingSafeArea: true)
         profileImageView.centerXToSuperview()
         profileImageView.width(profileImageViewWidth)
@@ -90,64 +129,31 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         
         profileImageButton.edges(to: profileImageView)
         
-        requestImageView.bottomToSuperview(offset: -30, usingSafeArea: true)
-        requestImageView.centerXToSuperview()
-        requestImageView.width(requestImageViewWidth)
-        requestImageView.height(requestImageViewWidth)
+        userNameLabel.topToSuperview(offset: 250, usingSafeArea: true)
+        userNameLabel.centerXToSuperview()
+        userNameLabel.width(300)
+        userNameLabel.height(50)
         
-        sendRequestButton.edges(to: requestImageView)
+        emailTextField.topToSuperview(offset: 350, usingSafeArea: true)
+        emailTextField.centerXToSuperview()
+        emailTextField.width(300)
+        emailTextField.height(50)
+        
+        passwordTextField.topToSuperview(offset: 405, usingSafeArea: true)
+        passwordTextField.centerXToSuperview()
+        passwordTextField.width(300)
+        passwordTextField.height(50)
+        
+        loginButton.topToSuperview(offset: 460, usingSafeArea: true)
+        loginButton.centerXToSuperview()
+        loginButton.width(300)
+        loginButton.height(50)
+        
+        forgotPasswordButton.topToSuperview(offset: 550, usingSafeArea: true)
+        forgotPasswordButton.centerXToSuperview()
+        forgotPasswordButton.width(300)
+        forgotPasswordButton.height(50)
     }
 }
 
-extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = sourceType
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func showImagePickerControllerActionSheet() {
-        
-        let imagePickerController = ImagePickerController()
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
-        
-        let photoLibraryAction = UIAlertAction(title: "Biblioteca", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .photoLibrary)
-        }
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.showImagePickerController(sourceType: .camera)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
-        
-        Alert.showAlert(style: .actionSheet, title: "Escolha uma imagem", message: nil, actions: [photoLibraryAction, cameraAction, cancelAction], completion: nil)
-    }
-    
-    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
-    }
-    
-    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-       if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            profileImageView.image = editedImage
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileImageView.image = originalImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
-        profileImageView.image = images[0]
-            
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
-}

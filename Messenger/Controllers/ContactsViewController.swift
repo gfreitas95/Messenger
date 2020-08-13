@@ -15,16 +15,30 @@ class ContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationButtons()
         tabBarViewController()
-        view.backgroundColor = .lightGray
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(handleLogout))
     }
     
-    @objc func handleLogout() {
-        let loginViewController = LoginViewController()
-        present(loginViewController, animated: true, completion: nil)
+    // MARK: - NavigationViewController
+    
+    func navigationButtons() {
+        
+        let searchButton = UIButton(type: .system)
+        searchButton.setImage(.add, for: .normal)
+        searchButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(logout))
     }
+    
+    @objc func logout() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - TabBarViewController
     
     func tabBarViewController() {
         
