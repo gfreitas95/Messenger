@@ -1,0 +1,20 @@
+PODS:
+  - ImagePicker (3.2.0)
+  - TinyConstraints (4.0.1)
+
+DEPENDENCIES:
+  - ImagePicker
+  - TinyConstraints
+
+SPEC REPOS:
+  trunk:
+    - ImagePicker
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  ImagePicker: 1d950bbb2422548ed58791b4ec7f42fe42920511
+  TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
+
+PODFILE CHECKSUM: 71efebd87fced0259afac14d5488e3051f7419c2
+
+COCOAPODS: 1.9.3
