@@ -12,8 +12,8 @@
 		EC005D9124E35CAC00FD78FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC005D9024E35CAC00FD78FD /* SceneDelegate.swift */; };
 		EC005D9324E35CAC00FD78FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC005D9224E35CAC00FD78FD /* LoginViewController.swift */; };
 		EC005D9824E35CAF00FD78FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC005D9724E35CAF00FD78FD /* Assets.xcassets */; };
-		EC005D9B24E35CAF00FD78FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC005D9924E35CAF00FD78FD /* LaunchScreen.storyboard */; };
 		EC930E9924E59EC300B2DB77 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */; };
+		ECD2760124EE02FD0042705A /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD2760024EE02FD0042705A /* ContactsCell.swift */; };
 		ECFC8DEE24E4283300E358A4 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFC8DED24E4283300E358A4 /* Alert.swift */; };
 		ECFC8DF024E4342C00E358A4 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFC8DEF24E4342C00E358A4 /* ContactsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -27,9 +27,9 @@
 		EC005D9024E35CAC00FD78FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../SceneDelegate.swift; sourceTree = "<group>"; };
 		EC005D9224E35CAC00FD78FD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../LoginViewController.swift; sourceTree = "<group>"; };
 		EC005D9724E35CAF00FD78FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EC005D9A24E35CAF00FD78FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC005D9C24E35CAF00FD78FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
+		ECD2760024EE02FD0042705A /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
 		ECFC8DED24E4283300E358A4 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		ECFC8DEF24E4342C00E358A4 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,11 +86,19 @@
 			children = (
 				ECFC8DEB24E427A400E358A4 /* Delegates */,
 				ECFC8DEC24E427B300E358A4 /* Controllers */,
+				ECD2760224EE03F90042705A /* ContactsCell */,
 				EC005D9724E35CAF00FD78FD /* Assets.xcassets */,
-				EC005D9924E35CAF00FD78FD /* LaunchScreen.storyboard */,
 				EC005D9C24E35CAF00FD78FD /* Info.plist */,
 			);
 			path = Messenger;
+			sourceTree = "<group>";
+		};
+		ECD2760224EE03F90042705A /* ContactsCell */ = {
+			isa = PBXGroup;
+			children = (
+				ECD2760024EE02FD0042705A /* ContactsCell.swift */,
+			);
+			path = ContactsCell;
 			sourceTree = "<group>";
 		};
 		ECFC8DEB24E427A400E358A4 /* Delegates */ = {
@@ -173,7 +181,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC005D9B24E35CAF00FD78FD /* LaunchScreen.storyboard in Resources */,
 				EC005D9824E35CAF00FD78FD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,21 +240,11 @@
 				ECFC8DEE24E4283300E358A4 /* Alert.swift in Sources */,
 				EC005D9124E35CAC00FD78FD /* SceneDelegate.swift in Sources */,
 				ECFC8DF024E4342C00E358A4 /* ContactsViewController.swift in Sources */,
+				ECD2760124EE02FD0042705A /* ContactsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		EC005D9924E35CAF00FD78FD /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EC005D9A24E35CAF00FD78FD /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EC005D9D24E35CAF00FD78FD /* Debug */ = {
@@ -371,6 +368,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Messenger/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -389,6 +387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Messenger/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

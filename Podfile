@@ -9,5 +9,6 @@ target 'Messenger' do
 
 	pod "TinyConstraints"
 	pod 'ImagePicker'
+	pod 'LBTATools'
 
 end

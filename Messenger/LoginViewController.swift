@@ -12,8 +12,71 @@ import TinyConstraints
 
 class LoginViewController: UIViewController, ImagePickerDelegate {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.backgroundColor = .white
+    }
     
-    let profileImageViewWidth : CGFloat = 200
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        view.addSubview(label)
+        view.addSubview(appVersion)
+        view.addSubview(loginButton)
+        view.addSubview(emailTextField)
+        view.addSubview(profileImageView)
+        view.addSubview(passwordTextField)
+        view.addSubview(profileImageButton)
+        view.addSubview(forgotPasswordButton)
+        
+        profileImageView.topToSuperview(offset: 0, usingSafeArea: true)
+        profileImageView.centerXToSuperview()
+        profileImageView.width(profileImageViewWidth)
+        profileImageView.height(profileImageViewWidth)
+        
+        profileImageButton.edges(to: profileImageView)
+        
+        label.topToBottom(of: profileImageButton, offset: 10, relation: .equal, priority: .defaultHigh, isActive: true)
+        label.centerXToSuperview()
+        label.width(300)
+        label.height(50)
+        
+        emailTextField.topToBottom(of: label, offset: 10, relation: .equal, priority: .defaultHigh, isActive: true)
+        emailTextField.centerXToSuperview()
+        emailTextField.width(300)
+        emailTextField.height(40)
+        
+        passwordTextField.topToBottom(of: emailTextField, offset: 5, relation: .equal, priority: .defaultHigh, isActive: true)
+        passwordTextField.centerXToSuperview()
+        passwordTextField.width(300)
+        passwordTextField.height(40)
+        
+        loginButton.topToBottom(of: passwordTextField, offset: 10, relation: .equal, priority: .defaultHigh, isActive: true)
+        loginButton.centerXToSuperview()
+        loginButton.width(300)
+        loginButton.height(40)
+        
+        forgotPasswordButton.topToBottom(of: loginButton, offset: 10, relation: .equal, priority: .defaultHigh, isActive: true)
+        forgotPasswordButton.centerXToSuperview()
+        forgotPasswordButton.width(300)
+        forgotPasswordButton.height(40)
+        
+        appVersion.width(100)
+        appVersion.height(30)
+        appVersion.bottomToSuperview()
+        appVersion.trailingToSuperview(offset: 10, usingSafeArea: true)
+    }
+    
+    // MARK: - ProfileImageView
+    
+    let profileImageViewWidth : CGFloat = 140
     let imageProfile = UIImage(named: "logo") as UIImage?
     
     lazy var profileImageView : UIImageView = {
@@ -25,6 +88,7 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         return imageView
     }()
     
+    // MARK: - ProfileImageButton
     lazy var profileImageButton : UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .clear
@@ -34,42 +98,42 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         return button
     }()
     
-    let userNameLabel : UILabel = {
+    // MARK: - Label
+    
+    let label : UILabel = {
         let label = UILabel()
         label.text = "Select your image profile \ntapping on a logo"
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 2
+        label.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 15)
        return label
     }()
     
-    let userNameTextField : UITextField = {
-        let userName = UITextField()
-        userName.placeholder = " Insert your user name"
-        userName.borderStyle = UITextField.BorderStyle.line
-        userName.layer.cornerRadius = 10
-        userName.layer.masksToBounds = false
-       return userName
-    }()
+    // MARK: - UsernameTextField
     
     let emailTextField : UITextField = {
         let email = UITextField()
         email.placeholder = " Insert your email"
-        email.borderStyle = UITextField.BorderStyle.line
+        email.borderStyle = UITextField.BorderStyle.roundedRect
         email.layer.cornerRadius = 10
         email.layer.masksToBounds = false
        return email
     }()
     
+    // MARK: - PasswordTextField
+    
     let passwordTextField : UITextField = {
         let password = UITextField()
         password.placeholder = " Insert your password"
         password.isSecureTextEntry = true
-        password.borderStyle = UITextField.BorderStyle.line
+        password.borderStyle = UITextField.BorderStyle.roundedRect
         password.layer.cornerRadius = 10
         password.layer.masksToBounds = false
        return password
     }()
+    
+    // MARK: - LoginButton
     
     let loginButton : UIButton = {
         let loginButton = UIButton(type: .system)
@@ -82,12 +146,26 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         return loginButton
     }()
     
+    // MARK: - ForgotPasswordButton
+    
     let forgotPasswordButton : UIButton = {
         let forgotPassword = UIButton(type: .system)
         forgotPassword.setTitle("Forgot my password", for: .normal)
         forgotPassword.setTitleColor(.lightGray, for: .normal)
         return forgotPassword
     }()
+    
+    // MARK: - AppVersion
+    
+    let appVersion : UILabel = {
+        let appVersion = UILabel()
+        appVersion.text = "Version 0.0.1"
+        appVersion.textColor = .gray
+        appVersion.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 12)
+       return appVersion
+    }()
+    
+    // MARK: - Segues
     
     @objc fileprivate func profileImageButtonTapped() {
         showImagePickerControllerActionSheet()
@@ -97,63 +175,4 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         let contacts = ContactsViewController()
         navigationController?.pushViewController(contacts, animated: true)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-    }
-    
-    fileprivate func setupViews() {
-        addSubViews()
-        constraints()
-        view.backgroundColor = .white
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
-    }
-    
-    fileprivate func addSubViews() {
-        view.addSubview(loginButton)
-        view.addSubview(userNameLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(profileImageView)
-        view.addSubview(passwordTextField)
-        view.addSubview(profileImageButton)
-        view.addSubview(forgotPasswordButton)
-    }
-    
-    fileprivate func constraints() {
-        profileImageView.topToSuperview(offset: 36, usingSafeArea: true)
-        profileImageView.centerXToSuperview()
-        profileImageView.width(profileImageViewWidth)
-        profileImageView.height(profileImageViewWidth)
-        
-        profileImageButton.edges(to: profileImageView)
-        
-        userNameLabel.topToSuperview(offset: 250, usingSafeArea: true)
-        userNameLabel.centerXToSuperview()
-        userNameLabel.width(300)
-        userNameLabel.height(50)
-        
-        emailTextField.topToSuperview(offset: 350, usingSafeArea: true)
-        emailTextField.centerXToSuperview()
-        emailTextField.width(300)
-        emailTextField.height(50)
-        
-        passwordTextField.topToSuperview(offset: 405, usingSafeArea: true)
-        passwordTextField.centerXToSuperview()
-        passwordTextField.width(300)
-        passwordTextField.height(50)
-        
-        loginButton.topToSuperview(offset: 460, usingSafeArea: true)
-        loginButton.centerXToSuperview()
-        loginButton.width(300)
-        loginButton.height(50)
-        
-        forgotPasswordButton.topToSuperview(offset: 550, usingSafeArea: true)
-        forgotPasswordButton.centerXToSuperview()
-        forgotPasswordButton.width(300)
-        forgotPasswordButton.height(50)
-    }
 }
-
-
