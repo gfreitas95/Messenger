@@ -14,7 +14,6 @@ class ContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationButtons()
         tabBarViewController()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -33,31 +32,6 @@ class ContactsViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-    }
-    
-    // MARK: - NavigationViewController
-    
-    func navigationButtons() {
-        
-        let backButton = UIButton(type: .system)
-        backButton.setImage(UIImage(named: "seta"), for: .normal)
-        backButton.tintColor = .white
-        backButton.backgroundColor = .systemBlue
-        backButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        backButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
-        
-        let searchButton = UIButton(type: .system)
-        searchButton.setImage(UIImage(named: "lista"), for: .normal)
-        searchButton.tintColor = .white
-        searchButton.backgroundColor = .systemBlue
-        searchButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        searchButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchButton)
     }
     
     // MARK: - Target Action
@@ -101,32 +75,31 @@ class ContactsViewController: UIViewController {
         
     let data = [CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo"))]
 
+    // MARK: - UICollectionViewController
+    
+    let collectionView: UICollectionView = {
+       
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        // MARK: - UICollectionViewController
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        let collectionView: UICollectionView = {
-           
-            let layout = UICollectionViewFlowLayout()
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            
-            layout.minimumLineSpacing = 10
-            layout.minimumInteritemSpacing = 10
-            layout.scrollDirection = .horizontal
-            layout.itemSize = CGSize(width: 100, height: 100)
-            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            
-            collectionView.backgroundColor = .white
-            collectionView.showsHorizontalScrollIndicator = false
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
-            collectionView.register(ContactsCell.self, forCellWithReuseIdentifier: "ContactsCell")
-            return collectionView
-        }()
-    }
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(ContactsCell.self, forCellWithReuseIdentifier: "ContactsCell")
+        return collectionView
+    }()
+}
 
 extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.height - 20, height: collectionView.frame.height - 20)
+        return CGSize(width: collectionView.frame.size.height, height: collectionView.frame.size.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -138,4 +111,11 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollecti
         cell.data = self.data[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+           let chatBox = ChatBox()
+           chatBox.friend = data[indexPath.row]
+           self.navigationController?.pushViewController(chatBox, animated: true)
+       }
 }

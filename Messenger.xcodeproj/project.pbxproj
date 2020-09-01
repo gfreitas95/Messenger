@@ -14,6 +14,7 @@
 		EC005D9824E35CAF00FD78FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC005D9724E35CAF00FD78FD /* Assets.xcassets */; };
 		EC930E9924E59EC300B2DB77 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */; };
 		ECD2760124EE02FD0042705A /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD2760024EE02FD0042705A /* ContactsCell.swift */; };
+		ECF839FA24FDBDA800F6494B /* ChatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF839F924FDBDA800F6494B /* ChatBox.swift */; };
 		ECFC8DEE24E4283300E358A4 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFC8DED24E4283300E358A4 /* Alert.swift */; };
 		ECFC8DF024E4342C00E358A4 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFC8DEF24E4342C00E358A4 /* ContactsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		EC005D9C24E35CAF00FD78FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		ECD2760024EE02FD0042705A /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
+		ECF839F924FDBDA800F6494B /* ChatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBox.swift; sourceTree = "<group>"; };
 		ECFC8DED24E4283300E358A4 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		ECFC8DEF24E4342C00E358A4 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				ECFC8DED24E4283300E358A4 /* Alert.swift */,
+				ECF839F924FDBDA800F6494B /* ChatBox.swift */,
 				EC005D9224E35CAC00FD78FD /* LoginViewController.swift */,
 				ECFC8DEF24E4342C00E358A4 /* ContactsViewController.swift */,
 				EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */,
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC930E9924E59EC300B2DB77 /* ImagePickerViewController.swift in Sources */,
+				ECF839FA24FDBDA800F6494B /* ChatBox.swift in Sources */,
 				EC005D9324E35CAC00FD78FD /* LoginViewController.swift in Sources */,
 				EC005D8F24E35CAC00FD78FD /* AppDelegate.swift in Sources */,
 				ECFC8DEE24E4283300E358A4 /* Alert.swift in Sources */,

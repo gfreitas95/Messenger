@@ -71,13 +71,13 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         appVersion.width(100)
         appVersion.height(30)
         appVersion.bottomToSuperview()
-        appVersion.trailingToSuperview(offset: 10, usingSafeArea: true)
+        appVersion.trailingToSuperview(offset: -20, usingSafeArea: true)
     }
     
     // MARK: - ProfileImageView
     
     let profileImageViewWidth : CGFloat = 140
-    let imageProfile = UIImage(named: "logo") as UIImage?
+    let imageProfile = UIImage(named: "icon") as UIImage?
     
     lazy var profileImageView : UIImageView = {
         let imageView = UIImageView()
@@ -102,7 +102,7 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
     
     let label : UILabel = {
         let label = UILabel()
-        label.text = "Select your image profile \ntapping on a logo"
+        label.text = "Select your profile image"
         label.numberOfLines = 2
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
