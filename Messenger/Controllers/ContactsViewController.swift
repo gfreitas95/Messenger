@@ -73,7 +73,7 @@ class ContactsViewController: UIViewController {
     
     // MARK: - FriendsDictionary
         
-    let data = [CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo")), CustomData(image: #imageLiteral(resourceName: "logo"))]
+    let data = [CustomData(image: #imageLiteral(resourceName: "steve")), CustomData(image: #imageLiteral(resourceName: "bill")), CustomData(image: #imageLiteral(resourceName: "grace")), CustomData(image: #imageLiteral(resourceName: "lovelace")), CustomData(image: #imageLiteral(resourceName: "mark"))]
 
     // MARK: - UICollectionViewController
     

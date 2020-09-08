@@ -27,7 +27,7 @@ class ContactsCell: UICollectionViewCell {
         friendsImage.clipsToBounds = true
         friendsImage.layer.borderWidth = 5
         friendsImage.layer.masksToBounds = false
-        friendsImage.contentMode = .scaleAspectFill
+        friendsImage.contentMode = .scaleAspectFit
         friendsImage.layer.borderColor = UIColor.green.cgColor
         friendsImage.layer.cornerRadius = friendsImage.frame.size.width / 2
         friendsImage.translatesAutoresizingMaskIntoConstraints = false

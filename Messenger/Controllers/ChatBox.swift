@@ -127,7 +127,7 @@ class ChatBox: UIViewController {
      let friendImage = UIImageView()
      friendImage.image = UIImage(named: "logo")
      friendImage.clipsToBounds = true
-     friendImage.contentMode = .scaleAspectFill
+     friendImage.contentMode = .scaleAspectFit
      friendImage.translatesAutoresizingMaskIntoConstraints = false
     return friendImage
     }()
