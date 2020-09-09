@@ -10,18 +10,16 @@ import UIKit
 import ImagePicker
 import TinyConstraints
 
-class LoginViewController: UIViewController, ImagePickerDelegate {
+class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         view.backgroundColor = .white
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .white
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,8 +68,19 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         
         appVersion.width(100)
         appVersion.height(30)
-        appVersion.bottomToSuperview()
+        appVersion.bottomToSuperview(offset: 0, usingSafeArea: true)
         appVersion.trailingToSuperview(offset: -20, usingSafeArea: true)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     // MARK: - ProfileImageView
@@ -152,6 +161,7 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
         let forgotPassword = UIButton(type: .system)
         forgotPassword.setTitle("Forgot my password", for: .normal)
         forgotPassword.setTitleColor(.lightGray, for: .normal)
+        forgotPassword.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
         return forgotPassword
     }()
     
@@ -174,5 +184,12 @@ class LoginViewController: UIViewController, ImagePickerDelegate {
     @objc fileprivate func loginButtonTapped() {
         let contacts = ContactsViewController()
         navigationController?.pushViewController(contacts, animated: true)
+    }
+    
+    @objc fileprivate func forgotPasswordTapped() {
+        let forgotPassword = ForgotPasswordViewController()
+        
+        forgotPassword.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(forgotPassword, animated: true)
     }
 }

@@ -23,7 +23,7 @@ class ContactsCell: UICollectionViewCell {
     
     let friendsImage: UIImageView = {
         let friendsImage = UIImageView()
-        friendsImage.image = UIImage(named: "logo")
+        friendsImage.image = UIImage(named: "")
         friendsImage.clipsToBounds = true
         friendsImage.layer.borderWidth = 5
         friendsImage.layer.masksToBounds = false

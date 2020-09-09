@@ -9,29 +9,34 @@
 import UIKit
 import TinyConstraints
 
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController, UISearchBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController()
         tabBarViewController()
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchController.searchBar.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        title = "Contacts"
         view.backgroundColor = .white
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             collectionView.height(100),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topToSuperview(offset: 10, usingSafeArea: true),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: - Target Action
@@ -40,7 +45,24 @@ class ContactsViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    // MARK: - TabBarViewController
+    // MARK: - UINavigationController
+    
+    func navigationController() {
+        navigationItem.title = "Contacts"
+        navigationItem.searchController = searchController
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = .white
+    }
+    
+    // MARK: - UISearchBarController
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchTexte: String) {
+        
+    }
+    
+    // MARK: - TabBarController
     
     func tabBarViewController() {
         
@@ -73,7 +95,7 @@ class ContactsViewController: UIViewController {
     
     // MARK: - FriendsDictionary
         
-    let data = [CustomData(image: #imageLiteral(resourceName: "steve")), CustomData(image: #imageLiteral(resourceName: "bill")), CustomData(image: #imageLiteral(resourceName: "grace")), CustomData(image: #imageLiteral(resourceName: "lovelace")), CustomData(image: #imageLiteral(resourceName: "mark"))]
+    let friendsImage = [CustomData(image: #imageLiteral(resourceName: "alberto")), CustomData(image: #imageLiteral(resourceName: "renato")), CustomData(image: #imageLiteral(resourceName: "jaque")), CustomData(image: #imageLiteral(resourceName: "pedro")), CustomData(image: #imageLiteral(resourceName: "loren")), CustomData(image: #imageLiteral(resourceName: "renata")), CustomData(image: #imageLiteral(resourceName: "reis")), CustomData(image: #imageLiteral(resourceName: "felipe")), CustomData(image: #imageLiteral(resourceName: "fabio"))]
 
     // MARK: - UICollectionViewController
     
@@ -103,19 +125,18 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return friendsImage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContactsCell", for: indexPath) as! ContactsCell
-        cell.data = self.data[indexPath.row]
+        cell.data = self.friendsImage[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
-           let chatBox = ChatBox()
-           chatBox.friend = data[indexPath.row]
+           let chatBox = ChatBoxViewController()
            self.navigationController?.pushViewController(chatBox, animated: true)
        }
 }

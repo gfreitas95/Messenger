@@ -56,8 +56,8 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        
         profileImageView.image = images[0]
-            
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
