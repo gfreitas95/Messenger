@@ -7,130 +7,49 @@
 //
 
 import UIKit
+import MessageKit
 
-class ChatBoxViewController: UIViewController, UITextFieldDelegate {
+struct Message: MessageType {
+    
+    var sentDate: Date
+    var messageId: String
+    var kind: MessageKind
+    var sender: SenderType
+}
+
+struct Sender: SenderType {
+    
+    var photoUrl: String
+    var senderId: String
+    var displayName: String
+}
+
+class ChatBoxViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarViewController()
         view.backgroundColor = .white
-        messageTextField.delegate = self
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        
+        messages.append(Message(sentDate: Date(), messageId: "1", kind: .text("Hello"), sender: selfSender))
+        messages.append(Message(sentDate: Date(), messageId: "1", kind: .text("It's me, Mario !"), sender: selfSender))
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        view.addSubview(textView)
-        view.addSubview(messageTextField)
-        messageTextField.addSubview(sendMessageButton)
-        
-        NSLayoutConstraint.activate([
-            messageTextField.width(300),
-            messageTextField.height(50),
-            messageTextField.leadingToSuperview(),
-            messageTextField.trailingToSuperview(),
-            messageTextField.bottomToSuperview(offset: -49, usingSafeArea: true),
-            
-            sendMessageButton.width(30),
-            sendMessageButton.height(30),
-            sendMessageButton.centerYToSuperview(),
-            sendMessageButton.trailingAnchor.constraint(equalTo: messageTextField.trailingAnchor, constant: -20)
-        ])
+    private var messages = [Message]()
+    private let selfSender = Sender(photoUrl: "", senderId: "1", displayName: "")
+
+    func currentSender() -> SenderType {
+        return selfSender
     }
     
-    // MARK: - UITextFieldDelegate
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        return messages[indexPath.section]
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // MARK: - UITabBarController
-    
-    func tabBarViewController() {
-        
-        let tabBar = UITabBarController()
-        tabBar.tabBar.barTintColor = .white
-        tabBar.tabBar.tintColor = .systemBlue
-        
-        let firstView = UIViewController()
-        let secondView = UIViewController()
-        let thirdView = UIViewController()
-        let fourthView = UIViewController()
-        let fifthView = UIViewController()
-        
-        let firstItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
-        let secondItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        let thirdItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
-        let fourthItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 3)
-        let fifthItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 4)
-        
-        firstView.tabBarItem = firstItem
-        secondView.tabBarItem = secondItem
-        thirdView.tabBarItem = thirdItem
-        fourthView.tabBarItem = fourthItem
-        fifthView.tabBarItem = fifthItem
-        
-        tabBar.viewControllers = [firstView, secondView, thirdView, fourthView, fifthView]
-        
-        view.addSubview(tabBar.view)
-    }
-    
-    // MARK: - SendMessageTextField
-    
-    let messageTextField : UITextField = {
-        let message = UITextField()
-        message.placeholder = " Type your message ..."
-        message.borderStyle = UITextField.BorderStyle.roundedRect
-        message.layer.cornerRadius = 10
-        message.layer.masksToBounds = false
-       return message
-    }()
-    
-    // MARK: - UITextViewController
-    
-    let textView : UITextView = {
-        let textView = UITextView()
-        textView.textColor = .white
-        textView.textAlignment = .center
-        textView.layer.cornerRadius = 10
-        textView.layer.masksToBounds = false
-        textView.backgroundColor = .systemBlue
-        textView.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 15)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-       return textView
-    }()
-    
-    // MARK: - UIButtonSendMessage
-    
-    let sendMessageButton : UIButton = {
-        let sendMessageButton = UIButton(type: .system)
-        sendMessageButton.setImage(UIImage(named: "send"), for: .normal)
-        sendMessageButton.setTitleColor(.blue, for: .normal)
-        sendMessageButton.translatesAutoresizingMaskIntoConstraints = false
-        sendMessageButton.addTarget(self, action: #selector(showMessage), for: .touchUpInside)
-        return sendMessageButton
-    }()
-    
-    @objc func showMessage() {
-        
-        if textView.text == "" {
-            adjustUITextViewHeight(adjust: textView)
-            textView.text = "\(messageTextField.text!)"
-            textView.topToSuperview(offset: 20, usingSafeArea: true)
-            textView.trailingToSuperview(offset: 20, usingSafeArea: true)
-        }
-    }
-    
-    func adjustUITextViewHeight(adjust: UITextView) {
-        adjust.sizeToFit()
-        adjust.isScrollEnabled = false
-        adjust.translatesAutoresizingMaskIntoConstraints = true
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return messages.count
     }
 }
-

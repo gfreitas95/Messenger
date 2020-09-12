@@ -9,5 +9,7 @@ target 'Messenger' do
 
 	pod "TinyConstraints"
 	pod 'ImagePicker'
+	pod 'SCLAlertView'
+	pod 'MessageKit'
 
 end

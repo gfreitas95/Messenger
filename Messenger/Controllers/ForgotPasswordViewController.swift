@@ -7,7 +7,12 @@
 //
 
 import UIKit
+import SCLAlertView
 import TinyConstraints
+
+struct Mask {
+    static let CPF = "###.###.###-##"
+}
 
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
@@ -15,7 +20,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
        
         cpfTextField.delegate = self
-        view.backgroundColor = .groupTableViewBackground
+        view.backgroundColor = .white
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.backgroundColor = .white
     }
@@ -78,22 +83,36 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         description.textAlignment = .left
         description.textColor = .systemBlue
         description.lineBreakMode = .byWordWrapping
-        description.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 20)
+        description.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 15)
        return description
     }()
+    
+    // MARK: - CPFStringFormatter
+    
+    func cpfFormat() -> String? {
+        
+        let formatter = Formatter()
+        return formatter.editingString(for: "XXX.XXX.XXX-XX")
+    }
     
     // MARK: - CPFTextField
     
     let cpfTextField : UITextField = {
         let cpf = UITextField()
-        cpf.placeholder = " Insert your CPF"
-        cpf.isSecureTextEntry = true
-        cpf.keyboardType = .numberPad
-        cpf.borderStyle = UITextField.BorderStyle.roundedRect
         cpf.layer.cornerRadius = 10
+        cpf.keyboardType = .numberPad
         cpf.layer.masksToBounds = false
+        cpf.placeholder = " Insert your CPF"
+        cpf.borderStyle = UITextField.BorderStyle.roundedRect
        return cpf
     }()
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//            cpfTextField.placeholder = cpfFormat()
+//
+//        return false
+//    }
     
     // MARK: - RecoverButton
     
@@ -109,6 +128,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     }()
     
     @objc fileprivate func recoverButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        
+        SCLAlertView().showSuccess("Success", subTitle: "Soon you will receive an e-mail with corfimation of the recovered data")
     }
 }

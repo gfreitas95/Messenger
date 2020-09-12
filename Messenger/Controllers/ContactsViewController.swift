@@ -42,7 +42,7 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
     // MARK: - Target Action
     
     @objc func logout() {
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: false)
     }
     
     // MARK: - UINavigationController
