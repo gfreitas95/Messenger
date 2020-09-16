@@ -53,7 +53,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         recoverButton.width(300)
         recoverButton.height(40)
     }
-    
+            
     // MARK: - UITextFieldDelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -129,6 +129,24 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @objc fileprivate func recoverButtonTapped() {
         
+        if cpfTextField.text == "" {
+            simpleShakeAnimation()
+        } else {
         SCLAlertView().showSuccess("Success", subTitle: "Soon you will receive an e-mail with corfimation of the recovered data")
+        }
+    }
+    
+    // MARK: - Animations
+    
+    func simpleShakeAnimation(duration: CFTimeInterval = 0.3, transition: CGFloat = 10) {
+            
+        CATransaction.begin()
+        
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.duration = duration
+        animation.values = [-transition, transition, -transition, transition, -(transition/2), (transition/2), -(transition/4), (transition/4), 0.0 ]
+        
+        CATransaction.commit()
     }
 }
