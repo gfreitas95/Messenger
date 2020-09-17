@@ -15,11 +15,8 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        view.backgroundColor = .white
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {
@@ -33,6 +30,15 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
         view.addSubview(passwordTextField)
         view.addSubview(profileImageButton)
         view.addSubview(forgotPasswordButton)
+        navigationController?.navigationBar.isTranslucent = false
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            navigationController?.navigationBar.backgroundColor = .tertiarySystemBackground
+        } else {
+            view.backgroundColor = .white
+            navigationController?.navigationBar.backgroundColor = .white
+        }
         
         profileImageView.topToSuperview(offset: 0, usingSafeArea: true)
         profileImageView.centerXToSuperview()
@@ -70,6 +76,10 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
         appVersion.height(30)
         appVersion.bottomToSuperview(offset: 0, usingSafeArea: true)
         appVersion.trailingToSuperview(offset: -20, usingSafeArea: true)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
     
     // MARK: - UITextFieldDelegate
@@ -114,6 +124,11 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
         label.text = "Select your profile image"
         label.numberOfLines = 2
         label.textAlignment = .center
+        if #available(iOS 13.0, *) {
+            label.textColor = .label
+        } else {
+            // Fallback on earlier versions
+        }
         label.lineBreakMode = .byWordWrapping
         label.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 15)
        return label
@@ -124,6 +139,11 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
     let emailTextField : UITextField = {
         let email = UITextField()
         email.placeholder = " Insert your email"
+        if #available(iOS 13.0, *) {
+            email.textColor = .placeholderText
+        } else {
+            // Fallback on earlier versions
+        }
         email.borderStyle = UITextField.BorderStyle.roundedRect
         email.layer.cornerRadius = 10
         email.layer.masksToBounds = false
@@ -135,6 +155,11 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
     let passwordTextField : UITextField = {
         let password = UITextField()
         password.placeholder = " Insert your password"
+        if #available(iOS 13.0, *) {
+            password.textColor = .placeholderText
+        } else {
+            // Fallback on earlier versions
+        }
         password.isSecureTextEntry = true
         password.borderStyle = UITextField.BorderStyle.roundedRect
         password.layer.cornerRadius = 10
@@ -160,7 +185,7 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
     let forgotPasswordButton : UIButton = {
         let forgotPassword = UIButton(type: .system)
         forgotPassword.setTitle("Forgot my password", for: .normal)
-        forgotPassword.setTitleColor(.lightGray, for: .normal)
+        forgotPassword.setTitleColor(.systemGray, for: .normal)
         forgotPassword.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
         return forgotPassword
     }()
@@ -170,7 +195,7 @@ class LoginViewController: UIViewController, ImagePickerDelegate, UITextFieldDel
     let appVersion : UILabel = {
         let appVersion = UILabel()
         appVersion.text = "Version 0.0.1"
-        appVersion.textColor = .gray
+        appVersion.textColor = .systemGray
         appVersion.font = .init(descriptor: .preferredFontDescriptor(withTextStyle: .subheadline), size: 12)
        return appVersion
     }()

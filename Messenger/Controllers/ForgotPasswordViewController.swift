@@ -10,19 +10,12 @@ import UIKit
 import SCLAlertView
 import TinyConstraints
 
-struct Mask {
-    static let CPF = "###.###.###-##"
-}
-
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         cpfTextField.delegate = self
-        view.backgroundColor = .white
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.backgroundColor = .white
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,6 +25,15 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(cpfTextField)
         view.addSubview(recoverButton)
         view.addSubview(descriptionLabel)
+        navigationController?.navigationBar.isTranslucent = false
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            navigationController?.navigationBar.backgroundColor = .tertiarySystemBackground
+        } else {
+            view.backgroundColor = .white
+            navigationController?.navigationBar.backgroundColor = .white
+        }
         
         recoverLabel.topToSuperview(offset: 20, usingSafeArea: true)
         recoverLabel.centerXToSuperview()
@@ -52,6 +54,10 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         recoverButton.centerXToSuperview()
         recoverButton.width(300)
         recoverButton.height(40)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
             
     // MARK: - UITextFieldDelegate
@@ -87,14 +93,6 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
        return description
     }()
     
-    // MARK: - CPFStringFormatter
-    
-    func cpfFormat() -> String? {
-        
-        let formatter = Formatter()
-        return formatter.editingString(for: "XXX.XXX.XXX-XX")
-    }
-    
     // MARK: - CPFTextField
     
     let cpfTextField : UITextField = {
@@ -104,15 +102,14 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         cpf.layer.masksToBounds = false
         cpf.placeholder = " Insert your CPF"
         cpf.borderStyle = UITextField.BorderStyle.roundedRect
+        
+        if #available(iOS 13.0, *) {
+            cpf.textColor = .placeholderText
+        } else {
+            // Fallback on earlier versions
+        }
        return cpf
     }()
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//
-//            cpfTextField.placeholder = cpfFormat()
-//
-//        return false
-//    }
     
     // MARK: - RecoverButton
     
@@ -129,24 +126,30 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @objc fileprivate func recoverButtonTapped() {
         
-        if cpfTextField.text == "" {
-            simpleShakeAnimation()
-        } else {
-        SCLAlertView().showSuccess("Success", subTitle: "Soon you will receive an e-mail with corfimation of the recovered data")
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            
+            if cpfTextField.text == "" {
+                shakeAnimation()
+            } else {
+                SCLAlertView().showSuccess("Success", subTitle: "Soon you will receive an e-mail with corfimation of the recovered data")
+            }
         }
     }
     
     // MARK: - Animations
     
-    func simpleShakeAnimation(duration: CFTimeInterval = 0.3, transition: CGFloat = 10) {
-            
-        CATransaction.begin()
+    func shakeAnimation() {
         
-        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.duration = duration
-        animation.values = [-transition, transition, -transition, transition, -(transition/2), (transition/2), -(transition/4), (transition/4), 0.0 ]
+        let animation = CABasicAnimation(keyPath: "shake")
+        animation.duration = 0.05
+        animation.repeatCount = 5
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: cpfTextField.center.x - 4, y: cpfTextField.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: cpfTextField.center.x + 4, y: cpfTextField.center.y))
         
-        CATransaction.commit()
+        cpfTextField.layer.add(animation, forKey: "shake")
+        cpfTextField.layer.borderWidth = 0.8
+        cpfTextField.textColor = .systemRed
+        cpfTextField.layer.borderColor = UIColor.systemRed.cgColor
     }
 }

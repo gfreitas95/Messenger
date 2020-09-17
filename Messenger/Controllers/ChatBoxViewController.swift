@@ -29,13 +29,28 @@ class ChatBoxViewController: MessagesViewController, MessagesDataSource, Message
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
         messages.append(Message(sentDate: Date(), messageId: "1", kind: .text("Hello"), sender: selfSender))
         messages.append(Message(sentDate: Date(), messageId: "1", kind: .text("It's me, Mario !"), sender: selfSender))
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            navigationController?.navigationBar.backgroundColor = .tertiarySystemBackground
+        } else {
+            view.backgroundColor = .white
+            navigationController?.navigationBar.backgroundColor = .white
+        }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
     }
     
     private var messages = [Message]()

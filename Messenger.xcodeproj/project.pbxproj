@@ -13,6 +13,7 @@
 		EC005D9324E35CAC00FD78FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC005D9224E35CAC00FD78FD /* LoginViewController.swift */; };
 		EC005D9824E35CAF00FD78FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC005D9724E35CAF00FD78FD /* Assets.xcassets */; };
 		EC2743CF2507EDA900B2A009 /* KeyboardNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2743CE2507EDA900B2A009 /* KeyboardNotifications.swift */; };
+		EC86209C2513D3C600A0EDBB /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86209B2513D3C600A0EDBB /* TextFields.swift */; };
 		EC930E9924E59EC300B2DB77 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */; };
 		ECD2760124EE02FD0042705A /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD2760024EE02FD0042705A /* ContactsCell.swift */; };
 		ECE3D66B250863D700B976DB /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE3D66A250863D700B976DB /* ForgotPasswordViewController.swift */; };
@@ -32,6 +33,7 @@
 		EC005D9724E35CAF00FD78FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC005D9C24E35CAF00FD78FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC2743CE2507EDA900B2A009 /* KeyboardNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotifications.swift; sourceTree = "<group>"; };
+		EC86209B2513D3C600A0EDBB /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		EC930E9824E59EC300B2DB77 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		ECD2760024EE02FD0042705A /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
 		ECE3D66A250863D700B976DB /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				ECFC8DEB24E427A400E358A4 /* Delegates */,
 				EC2743CD2507ED6600B2A009 /* Notifications */,
+				EC86209A2513D3A700A0EDBB /* Extentions */,
 				ECFC8DEC24E427B300E358A4 /* Controllers */,
 				ECD2760224EE03F90042705A /* ContactsCell */,
 				EC005D9724E35CAF00FD78FD /* Assets.xcassets */,
@@ -107,6 +110,14 @@
 				EC2743CE2507EDA900B2A009 /* KeyboardNotifications.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		EC86209A2513D3A700A0EDBB /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				EC86209B2513D3C600A0EDBB /* TextFields.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 		ECD2760224EE03F90042705A /* ContactsCell */ = {
@@ -256,6 +267,7 @@
 				ECF839FA24FDBDA800F6494B /* ChatBoxViewController.swift in Sources */,
 				EC005D9324E35CAC00FD78FD /* LoginViewController.swift in Sources */,
 				EC005D8F24E35CAC00FD78FD /* AppDelegate.swift in Sources */,
+				EC86209C2513D3C600A0EDBB /* TextFields.swift in Sources */,
 				ECFC8DEE24E4283300E358A4 /* Alert.swift in Sources */,
 				ECE3D66B250863D700B976DB /* ForgotPasswordViewController.swift in Sources */,
 				EC005D9124E35CAC00FD78FD /* SceneDelegate.swift in Sources */,

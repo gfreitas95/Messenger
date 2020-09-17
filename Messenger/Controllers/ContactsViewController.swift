@@ -24,8 +24,15 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        view.backgroundColor = .white
         view.addSubview(collectionView)
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+            navigationController?.navigationBar.backgroundColor = .tertiarySystemBackground
+        } else {
+            view.backgroundColor = .white
+            navigationController?.navigationBar.backgroundColor = .white
+        }
         
         NSLayoutConstraint.activate([
             collectionView.height(100),
@@ -36,7 +43,7 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     // MARK: - Target Action
@@ -51,7 +58,6 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
         navigationItem.title = "Contacts"
         navigationItem.searchController = searchController
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backgroundColor = .white
     }
     
     // MARK: - UISearchBarController
@@ -67,7 +73,11 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
     func tabBarViewController() {
         
         let tabBar = UITabBarController()
-        tabBar.tabBar.barTintColor = .white
+        if #available(iOS 13.0, *) {
+            tabBar.tabBar.barTintColor = .systemBackground
+        } else {
+            tabBar.tabBar.barTintColor = .white
+        }
         tabBar.tabBar.tintColor = .systemBlue
         
         let firstView = UIViewController()
@@ -110,7 +120,11 @@ class ContactsViewController: UIViewController, UISearchBarDelegate{
         layout.itemSize = CGSize(width: 100, height: 100)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        collectionView.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            collectionView.backgroundColor = .systemBackground
+        } else {
+            collectionView.backgroundColor = .white
+        }
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(ContactsCell.self, forCellWithReuseIdentifier: "ContactsCell")
